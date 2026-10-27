@@ -11,15 +11,23 @@
   method=value;form.elements.method.value=value;info.replaceChildren();
   document.querySelectorAll('[data-method]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.method===value)));
   const c=config[value];
-  if(value==='mpesa'){
-   line('Pay using M-Pesa on your phone.');
-   const label=document.createElement('label');label.textContent='M-Pesa phone number';
-   const input=document.createElement('input');input.type='tel';input.autocomplete='tel';input.placeholder='07… or +254…';input.disabled=true;label.append(input);info.append(label);
-   const button=document.createElement('button');button.type='button';button.className='button';button.textContent='Request M-Pesa prompt';button.disabled=true;info.append(button);
-   line('M-Pesa phone prompts are not available yet. No charge will be made.');
-   if(c&&c.instructions&&c.amountKES){line(c.instructions);line('Amount: KES '+c.amountKES);}
-  }else if(value==='bank'&&c&&c.bankName&&c.accountName&&c.accountNumber&&c.currency&&c.amount){
-   line('Bank: '+c.bankName);line('Account name: '+c.accountName);line('Account number: '+c.accountNumber);if(c.routing)line('Routing / SWIFT: '+c.routing);line('Amount: '+c.currency+' '+c.amount);
+  if(!contact.email)line('Payment confirmation by email is not available yet. Please arrange confirmation with HustleYangu before paying.');
+  if(value==='mpesa'&&c&&c.paybill&&c.accountNumber){
+   line('On your phone, open M-Pesa → Lipa na M-Pesa → Pay Bill.');
+   line('Business number (Paybill): '+c.paybill);
+   line('Account number: '+c.accountNumber);
+   if(c.amountKES)line('Amount: KES '+c.amountKES);
+   else line('Service price: US$80. The KES amount is awaiting confirmation. Please confirm the KES amount with HustleYangu before sending payment.');
+   line('Enter your M-Pesa PIN on your phone, check the recipient details, then keep the transaction message for confirmation.');
+  }else if(value==='bank'&&c&&c.bankName&&c.accountNumber){
+   line('Bank: '+c.bankName);if(c.branch)line('Branch: '+c.branch);
+   line('Account number: '+c.accountNumber);
+   if(c.accountName)line('Account holder: '+c.accountName);
+   if(c.routing)line('Routing / SWIFT: '+c.routing);
+   if(c.currency&&c.amount)line('Amount: '+c.currency+' '+c.amount);
+   else line('Service price: US$80. Confirm the transfer currency and amount with HustleYangu before paying.');
+   if(!c.accountName)line('Account holder name is awaiting confirmation. Confirm it with HustleYangu before making a transfer.');
+   line('Keep your bank transaction reference for payment confirmation.');
   }else if(value==='crypto'&&c&&c.token&&c.network&&c.address&&c.amount){
    line('Token: '+c.token);line('Network: '+c.network);line('Receiving address: '+c.address);line('Amount: '+c.amount+' '+c.token);line('Use only the network shown above. Keep your transaction hash for verification.');
   }else{line(labels[value]+' payments are not available yet. Receiving details have not been added.');}
@@ -32,7 +40,7 @@
  form.addEventListener('submit',event=>{
   event.preventDefault();if(!form.reportValidity())return;
   const data=Object.fromEntries(new FormData(form));
-  const text='HustleYangu short-video payment evidence\nService price: US$70\nVerification status: NOT VERIFIED\n\n'+Object.entries(data).map(([k,v])=>k+': '+v).join('\n');
+  const text='HustleYangu short-video payment evidence\nService price: US$80\nVerification status: NOT VERIFIED\n\n'+Object.entries(data).map(([k,v])=>k+': '+v).join('\n');
   const status=document.getElementById('evidence-status');
   if(typeof contact.email==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)){
    window.location.href='mailto:'+encodeURIComponent(contact.email)+'?subject='+encodeURIComponent('Short-video payment evidence — '+data.company)+'&body='+encodeURIComponent(text);

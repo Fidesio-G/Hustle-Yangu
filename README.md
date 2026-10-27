@@ -1,17 +1,23 @@
-# HustleYangu
+# HustleYangu v2.2 — 27 October 2026
 
-Discover African tech and business.
+## Deploy this update to GitHub Pages
+1. Extract HustleYangu-v2.2-GitHub-ready.zip.
+2. Open https://github.com/Fidesio-G/Hustle-Yangu and choose Add file → Upload files.
+3. Upload all extracted files and the assets folder to the repository root, replacing the older files. Do not upload the ZIP itself or nest the site in another folder.
+4. Commit with: Update HustleYangu to v2.2 — appearance fixes and payment details.
+5. Keep Settings → Pages set to main / (root). GitHub will publish the update.
 
-Static video website with light/dark themes, episodes, shorts, social links and partner options. Open index.html or publish the repository root using GitHub Pages (main branch, / root). No build step is required.
+index.html is at the ZIP root. No build command is needed. The footer shows v2.2 so you can identify the new build. If the old design persists after deployment, refresh without cache.
 
-## Configuration
+## Changes from the previous build
+- Transparent logo background.
+- Featured card follows light/dark mode.
+- Rounded video thumbnails.
+- Email enquiries and payment evidence drafts: hustleyangu.africa@gmail.com.
+- M-Pesa: KES 10,000, Paybill 542542, account 04407417276250.
+- Bank: I&M Bank, Tatu branch, Nishow Africa LTD, account 04407417276250, KES 10,000.
+- Crypto: 80 USDC on Base, address 0x7709Ac7C1d6Abb58Abe8B264BaAADA8FC68DC545.
 
-Set the business contact email in contact-config.js to enable sponsor and free story-pitch email links. Receiving details are configured in payment-config.js.
+Payments are manual transfers. The site does not trigger M-Pesa prompts or verify receipt automatically. Customers send payment evidence using their email app; receipt is verified manually before production.
 
-The US$70 short-video checkout is a review interface: live payment collection is not configured. M-Pesa phone prompts require a secure backend/provider integration. Bank and crypto receiving details are not yet supplied. Evidence confirmation is not proof of verified payment; without a contact email the form only downloads a local text file and does not submit it.
-
-The video service offers Nairobi filming or a remote explainer using supplied materials. Free pitches are reviewed without a guarantee of coverage.
-
-## Content
-
-Videos link to their original platforms. Sources are recorded in content-sources.json and reflect the catalogue verified on 12 October 2026, not an automatically updated feed. Media belongs to its original owners.
+This package does not change Vercel or domain settings. GitHub updates do not automatically update the separately uploaded Vercel deployment.

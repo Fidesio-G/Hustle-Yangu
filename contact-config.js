@@ -1,1 +1,1 @@
-window.HUSTLEYANGU_CONTACT = { email: null, paymentUrl: null };
+window.HUSTLEYANGU_CONTACT = { email: 'hustleyangu.africa@gmail.com', paymentUrl: null };
